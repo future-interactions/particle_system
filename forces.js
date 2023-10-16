@@ -1,14 +1,23 @@
 
 
 class Attractor {
-    constructor(x, y, z) {
+    constructor(x, y, z, m) {
         this.attractorLoc = createVector(x, y, z);
         //  this.attractorLoc.mult(100);
         this.attractorDims = createVector(10, 10, 0);
         this.attraction = createVector(0, 0, 0);
+        this.mass = m;
+        this.r = sqrt(m)*10;
+        print(this.r);
+
     }
+
+//     attract(particle){
+// let dir = p5.Vector.sub(this.attractorLoc, )
+//     }
+
     update() {
-        this.attractorLoc = createVector(mouseX - width / 2, mouseY - height / 2);
+        this.attractorLoc =  createVector(mouseX - width / 2, mouseY - height / 2);
         // attraction = p5.Vector.sub(this.attractorLoc, this.location);
         //diff.div(10);
     }
@@ -18,18 +27,22 @@ class Attractor {
         noStroke();
         fill(255, 0, 0);
         translate(this.attractorLoc.x, this.attractorLoc.y, this.attractorLoc.z);
-        sphere(this.attractorDims.x / 2);
+        sphere(this.r/ 2);
         pop();
     }
+
+
 
 }
 function getForces() {
     for (let i = 0; i < flock.length; i++) {
         //gravity
-        let gravity = createVector(0, 2, 0);
-        let weight = p5.Vector.mult(gravity, flock[i].mass);
-        // flock[i].applyForce(weight);
+        if (keyIsPressed === true && keyCode == 71) {
 
+        let gravity = createVector(0, .2, 0);
+        let weight = p5.Vector.mult(gravity, flock[i].mass);
+         flock[i].applyForce(weight);
+        }
         //wind
         if (keyIsPressed === true && keyCode == 87) {
                // let wind = createVector(noise(xoff), 0, 0);
@@ -39,17 +52,17 @@ function getForces() {
              xoff += 0.1;
         }
         //friction
-        // let diff = cubeDims.y / 2 - (flock[i].location.y + flock[i].r);
-        // if (diff < 1) {
-        //     let friction = flock[i].velocity.copy();
-        //     friction.normalize();
-        //     friction.mult(-1);
-        //     let mu = 0.1;
-        //     let normal = flock[i].mass;
-        //     friction.setMag(mu * normal);
-        //     flock[i].applyForce(friction);
+        let diff = cubeDims.y / 2 - (flock[i].location.y + flock[i].r);
+        if (diff < 1) {
+            let friction = flock[i].velocity.copy();
+            friction.normalize();
+            friction.mult(-1);
+            let mu = 0.1;
+            let normal = flock[i].mass;
+            friction.setMag(mu * normal);
+            flock[i].applyForce(friction);
 
-        // }
+        }
         //attraction
         let attraction = p5.Vector.sub(attractors[0].attractorLoc,flock[i].location);
         let attractPower = 2;
@@ -83,11 +96,14 @@ function getForces() {
         flock[i].checkCollision();
         flock[i].update();
         flock[i].show();
+        // attractors[0].attract(particle)
     }
 
     for (let i = 0; i < attractors.length; i++) {
         attractors[i].update();
+        if (keyIsPressed === true && keyCode == 67) {
         attractors[i].show();
+        }
     }
 
 

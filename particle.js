@@ -8,7 +8,7 @@ class Particle {
         this.acceleration = createVector(0, 0, 0);
         this.dims = createVector(d, d, d);
         //   this.dims.mult(5);
-        this.r = sqrt(d);
+        this.r = sqrt(d)*10;
         this.mass = d;
         //
     }
@@ -20,9 +20,9 @@ class Particle {
     }
 
     update() {
-       this.acceleration.setMag(0.1);//sets the strength of the acceleration
+       this.acceleration.setMag(0.3);//sets the strength of the acceleration
         this.velocity.add(this.acceleration);
-        this.velocity.limit(3);//limits the strength of the velocity
+        this.velocity.limit(10);//limits the strength of the velocity
         this.location.add(this.velocity);
         this.acceleration.set(0, 0, 0);
     }
