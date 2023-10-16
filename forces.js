@@ -87,7 +87,7 @@ function getForces() {
 
     for (let i = 0; i < attractors.length; i++) {
         attractors[i].update();
-       // attractors[i].show();
+        attractors[i].show();
     }
 
 
