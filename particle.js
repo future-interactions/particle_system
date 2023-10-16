@@ -13,30 +13,16 @@ class Particle {
         //
     }
 
-    friction() {
-        let diff = cubeDims.y / 2 - (this.location.y + this.r);
-        if (diff < 1) {
-            // print('friction');
-            let friction = this.velocity.copy();
-            friction.normalize();
-         
-
-            friction.mult(-1);
-            let mu = 0.1;
-            let normal = this.mass;
-            friction.setMag(mu*normal);
-            this.applyForce(friction);
-        }
-    }
+    
     applyForce(force) {
         let f = p5.Vector.div(force, this.mass);
         this.acceleration.add(f);
     }
 
     update() {
-       this.acceleration.setMag(0.5);//sets the strength of the acceleration
+       this.acceleration.setMag(0.1);//sets the strength of the acceleration
         this.velocity.add(this.acceleration);
-       //  this.velocity.limit(1);//limits the strength of the velocity
+        this.velocity.limit(3);//limits the strength of the velocity
         this.location.add(this.velocity);
         this.acceleration.set(0, 0, 0);
     }
@@ -44,7 +30,7 @@ class Particle {
     show() {
         push();
         noStroke();
-        fill(255, 200);
+        fill(255);
         translate(this.location.x, this.location.y, this.location.z);
         sphere(this.dims.x / 2);
         // ellipse(0, 0, this.r / 2);
