@@ -9,8 +9,9 @@ function setup() {
   cubeLoc = createVector(0, 0, 0);
 
   for (let i = 0; i < 100; i++) {
-    flock.push(new Particle(random(-cubeDims.x/2, cubeDims.x/2), random(-cubeDims.y-2, cubeDims.y/2), random(-cubeDims.z/2, cubeDims.z/2), random(0.01, 20), random(0.5, 10)));
-  // print(cubeDims.x);
+    // flock.push(new Particle(random(-cubeDims.x/2, cubeDims.x/2), random(-cubeDims.y-2, cubeDims.y/2), random(-cubeDims.z/2, cubeDims.z/2), random(0.01, 20), random(0.5, 10)));
+  flock[i] = new Particle(random(-cubeDims.x/2, cubeDims.x/2), random(-cubeDims.y-2, cubeDims.y/2), random(-cubeDims.z/2, cubeDims.z/2), random(0.01, 20), random(0.5, 10));
+
   }
   for (let i = 0; i < 1; i++) {
     attractors.push(new Attractor(random(-100, 100), random(-100, 100), random(-100, 100)));

@@ -5,11 +5,11 @@ class Attractor {
         this.attractorLoc = createVector(x, y, z);
         //  this.attractorLoc.mult(100);
         this.attractorDims = createVector(10, 10, 0);
-        this.attraction = createVector(0,0,0);
+        this.attraction = createVector(0, 0, 0);
     }
     update() {
         this.attractorLoc = createVector(mouseX - width / 2, mouseY - height / 2);
-       // attraction = p5.Vector.sub(this.attractorLoc, this.location);
+        // attraction = p5.Vector.sub(this.attractorLoc, this.location);
         //diff.div(10);
     }
 
@@ -24,28 +24,23 @@ class Attractor {
 
 }
 function getForces() {
-    for (let particle of flock) {
+    for (let i = 0; i < flock.length; i++) {
         let gravity = createVector(0, 2, 0);
-        let weight = p5.Vector.mult(gravity, particle.mass);
-        particle.applyForce(weight);
-
+        let weight = p5.Vector.mult(gravity, flock[i].mass);
+        flock[i].applyForce(weight);
         if (mouseIsPressed) {
             let wind = createVector(0.5, 0, 0);
-            particle.applyForce(wind);
+            flock[i].applyForce(wind);
         }
-
-        //particle.applyForce(attraction); 
-
-        particle.friction();
-
-        particle.checkCollision();
-        particle.update();
-        particle.show();
+        flock[i].friction();
+        flock[i].checkCollision();
+        flock[i].update();
+        flock[i].show();
     }
 
-    for (let attractor of attractors) {
-        attractor.update();
-        attractor.show();
+    for (let i = 0; i < attractors.length; i++) {
+        attractors[i].update();
+        attractors[i].show();
     }
 }
 
