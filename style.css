@@ -18,3 +18,8 @@ canvas {
   left: 0;
   right: 0;
 }
+
+desc {
+  font-family: sans-serif;
+  font-size: 14px;
+}
